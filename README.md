@@ -44,6 +44,14 @@ The Sovereign Privacy Widget is a formally verified, cross-platform privacy moni
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## ABSOLUTE Architecture Blueprint
+
+A detailed Russian-language architecture blueprint for the next-generation ABSOLUTE platform is available at:
+
+- [`docs/ABSOLUTE_ARCHITECTURE_RU.md`](docs/ABSOLUTE_ARCHITECTURE_RU.md)
+
+This document expands the current core into a deployment, trust, update, search, and audit-encyclopedia architecture with explicit legal/privacy constraints.
+
 ## Installation
 
 ### Prerequisites
