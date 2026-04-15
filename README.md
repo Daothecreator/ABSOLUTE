@@ -62,6 +62,30 @@ The following concrete contracts/templates are now included under `absolute/` to
 - Update trust scaffolding: `absolute/update/tuf/roles.json`, `absolute/update/rekor/rekor-entry-template.json`
 - Vault format specification: `absolute/core/vault/vault-format.md`
 
+### Working ABSOLUTE Runtime (No Stubs)
+
+A runnable MVP runtime is available at `absolute/apps/guide/absolute_runtime.py` and includes:
+
+- real unified-event validation against the machine-readable contract,
+- real capability policy evaluation with deny-overrides,
+- real whitelisted command execution with timeout and argument guardrails,
+- real append-only hash-chained audit logging.
+
+Quick start:
+
+```bash
+python absolute/apps/guide/absolute_runtime.py validate-event --event absolute/apps/guide/event.example.json
+python absolute/apps/guide/absolute_runtime.py check-access --rules absolute/apps/guide/policies.example.json --capability filesystem:read --scope path:/workspace/ABSOLUTE/README.md
+python absolute/apps/guide/absolute_runtime.py run-command --command-id show-date
+python absolute/apps/guide/absolute_runtime.py append-audit --record absolute/apps/guide/audit-record.example.json
+```
+
+Run tests:
+
+```bash
+python -m unittest absolute.apps.guide.test_runtime -v
+```
+
 ## Installation
 
 ### Prerequisites
