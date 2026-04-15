@@ -44,6 +44,55 @@ The Sovereign Privacy Widget is a formally verified, cross-platform privacy moni
 └─────────────────────────────────────────────────────────────┘
 ```
 
+## ABSOLUTE Architecture Blueprint
+
+A detailed Russian-language architecture blueprint for the next-generation ABSOLUTE platform is available at:
+
+- [`docs/ABSOLUTE_ARCHITECTURE_RU.md`](docs/ABSOLUTE_ARCHITECTURE_RU.md)
+
+This document expands the current core into a deployment, trust, update, search, and audit-encyclopedia architecture with explicit legal/privacy constraints.
+
+### Implemented ABSOLUTE Foundation Artifacts
+
+The following concrete contracts/templates are now included under `absolute/` to move from blueprint to implementation:
+
+- Event contract schema: `absolute/core/event-bus/absolute-event.schema.json`
+- Terminal command interface (WIT): `absolute/apps/terminal/terminal.wit`
+- UCAN capability taxonomy seed: `absolute/core/policy-engine/capabilities.json`
+- Update trust scaffolding: `absolute/update/tuf/roles.json`, `absolute/update/rekor/rekor-entry-template.json`
+- Vault format specification: `absolute/core/vault/vault-format.md`
+
+### Working ABSOLUTE Runtime (No Stubs)
+
+A runnable MVP runtime is available at `absolute/apps/guide/absolute_runtime.py` and includes:
+
+- real unified-event validation against the machine-readable contract,
+- real capability policy evaluation with deny-overrides,
+- real whitelisted command execution with timeout and argument guardrails,
+- real append-only hash-chained audit logging.
+
+Quick start:
+
+```bash
+python absolute/apps/guide/absolute_runtime.py validate-event --event absolute/apps/guide/event.example.json
+python absolute/apps/guide/absolute_runtime.py check-access --rules absolute/apps/guide/policies.example.json --capability filesystem:read --scope path:/workspace/ABSOLUTE/README.md
+python absolute/apps/guide/absolute_runtime.py run-command --command-id show-date
+python absolute/apps/guide/absolute_runtime.py append-audit --record absolute/apps/guide/audit-record.example.json
+python absolute/apps/guide/absolute_runtime.py verify-audit
+python absolute/apps/guide/absolute_runtime.py safe-search --query "privacy minimization principles"
+```
+
+Run tests:
+
+```bash
+python -m unittest absolute.apps.guide.test_runtime -v
+```
+
+
+Search safety policy:
+- PII/doxxing-like queries are blocked with a safe explanation and alternatives.
+- Non-sensitive searches never return an empty screen: if no direct match exists, fallback sources are returned.
+
 ## Installation
 
 ### Prerequisites

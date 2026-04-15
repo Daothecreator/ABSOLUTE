@@ -1,0 +1,48 @@
+package absolute:terminal@0.1.0;
+
+interface caps {
+  enum cap {
+    read_camera,
+    read_microphone,
+    read_filesystem,
+    write_filesystem,
+    connect_network,
+    read_audit_document,
+    manage_policy,
+    publish_transparency_root
+  }
+}
+
+interface command {
+  use caps.{cap};
+
+  record command-metadata {
+    id: string,
+    name: string,
+    description: string,
+    version: string,
+    max-runtime-ms: u32,
+    max-memory-mib: u32,
+  }
+
+  record required-capability {
+    capability: cap,
+    scope: string,
+    reason: string,
+  }
+
+  record command-result {
+    exit-code: u32,
+    stdout: string,
+    stderr: string,
+    evidence-hash: option<string>,
+  }
+
+  describe: func() -> command-metadata;
+  required-caps: func() -> list<required-capability>;
+  run: func(args: list<string>) -> command-result;
+}
+
+world terminal-command {
+  export command;
+}

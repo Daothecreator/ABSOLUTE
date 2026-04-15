@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0",
+  "namespace": "absolute",
+  "capabilities": [
+    {
+      "name": "camera:read",
+      "description": "Read camera sensor stream metadata/events",
+      "scope_format": "device:<camera-id>|all",
+      "risk": "high"
+    },
+    {
+      "name": "microphone:read",
+      "description": "Read microphone sensor stream metadata/events",
+      "scope_format": "device:<mic-id>|all",
+      "risk": "high"
+    },
+    {
+      "name": "filesystem:read",
+      "description": "Read file metadata or content",
+      "scope_format": "path:<absolute-prefix>",
+      "risk": "medium"
+    },
+    {
+      "name": "filesystem:write",
+      "description": "Write file metadata or content",
+      "scope_format": "path:<absolute-prefix>",
+      "risk": "high"
+    },
+    {
+      "name": "net:connect",
+      "description": "Open outbound network connections",
+      "scope_format": "domain:<fqdn>|ip:<cidr>|port:<n>",
+      "risk": "high"
+    },
+    {
+      "name": "audit:download:doc",
+      "description": "Download a source document from approved provenance registries",
+      "scope_format": "source:<registry-id>",
+      "risk": "medium"
+    },
+    {
+      "name": "policy:manage",
+      "description": "Create, update or delete policy rules",
+      "scope_format": "policy:<id>|all",
+      "risk": "critical"
+    },
+    {
+      "name": "transparency:publish-root",
+      "description": "Publish Merkle roots to external transparency channel",
+      "scope_format": "channel:<id>",
+      "risk": "low"
+    }
+  ]
+}
