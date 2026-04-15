@@ -1,0 +1,17 @@
+{
+  "spec_version": "1.0.31",
+  "description": "Initial TUF role policy for ABSOLUTE update framework",
+  "roles": {
+    "root": { "threshold": 2, "keys": ["root-1", "root-2", "root-3"] },
+    "targets": { "threshold": 2, "keys": ["targets-1", "targets-2"] },
+    "snapshot": { "threshold": 1, "keys": ["snapshot-1"] },
+    "timestamp": { "threshold": 1, "keys": ["timestamp-1"] }
+  },
+  "delegations": {
+    "platform/linux": { "threshold": 1, "keys": ["linux-targets-1"] },
+    "platform/macos": { "threshold": 1, "keys": ["macos-targets-1"] },
+    "platform/windows": { "threshold": 1, "keys": ["windows-targets-1"] },
+    "apps/search": { "threshold": 1, "keys": ["search-targets-1"] },
+    "apps/audit-encyclopedia": { "threshold": 1, "keys": ["audit-targets-1"] }
+  }
+}

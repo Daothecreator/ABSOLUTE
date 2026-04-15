@@ -52,6 +52,16 @@ A detailed Russian-language architecture blueprint for the next-generation ABSOL
 
 This document expands the current core into a deployment, trust, update, search, and audit-encyclopedia architecture with explicit legal/privacy constraints.
 
+### Implemented ABSOLUTE Foundation Artifacts
+
+The following concrete contracts/templates are now included under `absolute/` to move from blueprint to implementation:
+
+- Event contract schema: `absolute/core/event-bus/absolute-event.schema.json`
+- Terminal command interface (WIT): `absolute/apps/terminal/terminal.wit`
+- UCAN capability taxonomy seed: `absolute/core/policy-engine/capabilities.json`
+- Update trust scaffolding: `absolute/update/tuf/roles.json`, `absolute/update/rekor/rekor-entry-template.json`
+- Vault format specification: `absolute/core/vault/vault-format.md`
+
 ## Installation
 
 ### Prerequisites
