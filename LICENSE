@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Zero Azimuth
+Copyright (c) 2026 Sovereign Privacy Collective
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+This software includes components from the following projects:
+
+- Coq Proof Assistant (LGPL-2.1)
+- libsodium (ISC License)
+- wasmtime (Apache-2.0)
+- libbpf (LGPL-2.1 OR BSD-2-Clause)
+
+The STLC core formal verification is based on the Simply Typed Lambda Calculus
+proofs from "Types and Programming Languages" by Benjamin C. Pierce.
