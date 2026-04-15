@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""ABSOLUTE Runtime MVP: working event validation, capability policy checks and secure command execution."""
+"""ABSOLUTE Runtime: event validation, capability policy checks, safe command execution, privacy-safe search, and audit chaining."""
 
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
-import os
 import re
+import resource
 import subprocess
 import sys
 import time
@@ -18,6 +18,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[3]
 SCHEMA_PATH = REPO_ROOT / "absolute/core/event-bus/absolute-event.schema.json"
 CAPS_PATH = REPO_ROOT / "absolute/core/policy-engine/capabilities.json"
+DEFAULT_INDEX_PATH = REPO_ROOT / "absolute/apps/guide/search-index.example.json"
 
 
 class ValidationError(Exception):
@@ -99,29 +100,16 @@ class CapabilityPolicyEngine:
         if capability not in self.known_caps:
             return False, f"Unknown capability: {capability}"
 
-        decision = None
-        matched = []
-        for rule in rules:
-            if rule.capability != capability:
-                continue
-            if scope.startswith(rule.scope_prefix):
-                matched.append(rule)
+        matched = [r for r in rules if r.capability == capability and scope.startswith(r.scope_prefix)]
 
-        # deny takes precedence over allow
         for rule in matched:
             if rule.effect == "deny":
-                decision = (False, f"Denied by rule scope_prefix={rule.scope_prefix}")
-                break
+                return False, f"Denied by rule scope_prefix={rule.scope_prefix}"
+        for rule in matched:
+            if rule.effect == "allow":
+                return True, f"Allowed by rule scope_prefix={rule.scope_prefix}"
 
-        if decision is None:
-            for rule in matched:
-                if rule.effect == "allow":
-                    decision = (True, f"Allowed by rule scope_prefix={rule.scope_prefix}")
-                    break
-
-        if decision is None:
-            return False, "No matching allow rule"
-        return decision
+        return False, "No matching allow rule"
 
 
 class CommandRunner:
@@ -131,6 +119,14 @@ class CommandRunner:
         "show-disk": ["df", "-h"],
         "list-dir": ["ls", "-la"],
     }
+
+    @staticmethod
+    def _limit_resources() -> None:
+        # hard limits to reduce abuse risk for spawned commands
+        cpu_seconds = 2
+        max_memory = 128 * 1024 * 1024
+        resource.setrlimit(resource.RLIMIT_CPU, (cpu_seconds, cpu_seconds))
+        resource.setrlimit(resource.RLIMIT_AS, (max_memory, max_memory))
 
     @staticmethod
     def run(command_id: str, args: list[str], timeout_sec: int = 10) -> dict[str, Any]:
@@ -143,7 +139,14 @@ class CommandRunner:
 
         cmd = CommandRunner.ALLOWED[command_id] + args
         started = time.time()
-        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout_sec, check=False)
+        proc = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=timeout_sec,
+            check=False,
+            preexec_fn=CommandRunner._limit_resources,
+        )
         elapsed_ms = int((time.time() - started) * 1000)
 
         return {
@@ -163,8 +166,9 @@ class AuditLog:
     def append(self, record: dict[str, Any]) -> dict[str, Any]:
         prev_hash = "0" * 64
         if self.path.exists() and self.path.stat().st_size > 0:
-            last = self.path.read_text().strip().splitlines()[-1]
-            prev_hash = json.loads(last)["chain_hash"]
+            lines = [line for line in self.path.read_text(encoding="utf-8").splitlines() if line.strip()]
+            if lines:
+                prev_hash = json.loads(lines[-1])["chain_hash"]
 
         payload = json.dumps(record, sort_keys=True, separators=(",", ":"))
         chain_hash = hashlib.sha256((prev_hash + payload).encode("utf-8")).hexdigest()
@@ -174,6 +178,96 @@ class AuditLog:
             fp.write(json.dumps(envelope, ensure_ascii=False) + "\n")
 
         return envelope
+
+    def verify(self) -> dict[str, Any]:
+        if not self.path.exists():
+            return {"ok": True, "records": 0, "message": "Log file does not exist yet"}
+
+        lines = [line for line in self.path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        prev_hash = "0" * 64
+
+        for index, line in enumerate(lines):
+            row = json.loads(line)
+            payload = json.dumps(row["record"], sort_keys=True, separators=(",", ":"))
+            expected = hashlib.sha256((prev_hash + payload).encode("utf-8")).hexdigest()
+            if row["prev_hash"] != prev_hash:
+                return {"ok": False, "records": len(lines), "failed_at": index, "reason": "prev_hash mismatch"}
+            if row["chain_hash"] != expected:
+                return {"ok": False, "records": len(lines), "failed_at": index, "reason": "chain_hash mismatch"}
+            prev_hash = row["chain_hash"]
+
+        return {"ok": True, "records": len(lines), "tip": prev_hash}
+
+
+class PrivacySafeSearch:
+    PII_PATTERNS = [
+        re.compile(r"\b\d{3}-\d{2}-\d{4}\b"),  # US SSN pattern
+        re.compile(r"\b\+?\d[\d\-\s]{7,}\d\b"),
+        re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"),
+    ]
+    BLOCKLIST_TERMS = {
+        "домашний адрес",
+        "личный номер",
+        "телефон человека",
+        "паспорт",
+        "ssn",
+        "dox",
+        "докс",
+    }
+
+    def __init__(self, index_path: Path = DEFAULT_INDEX_PATH):
+        self.index = json.loads(index_path.read_text(encoding="utf-8"))["documents"]
+
+    def is_blocked(self, query: str) -> tuple[bool, str]:
+        ql = query.lower()
+        if any(term in ql for term in self.BLOCKLIST_TERMS):
+            return True, "Запрос отклонён: попытка поиска персональных данных (PII/doxxing)."
+        if any(p.search(query) for p in self.PII_PATTERNS):
+            return True, "Запрос отклонён: обнаружен персональный идентификатор."
+        return False, ""
+
+    @staticmethod
+    def _tokens(text: str) -> set[str]:
+        return set(re.findall(r"[\wа-яА-ЯёЁ]{3,}", text.lower()))
+
+    def search(self, query: str, limit: int = 5) -> dict[str, Any]:
+        blocked, reason = self.is_blocked(query)
+        if blocked:
+            return {
+                "blocked": True,
+                "reason": reason,
+                "safe_alternatives": [
+                    "Используйте агрегированные отчёты по теме",
+                    "Ищите официальные публичные реестры без персональных идентификаторов",
+                    "Запросите обзор правовых рамок вместо данных о частных лицах",
+                ],
+                "results": [],
+            }
+
+        q_tokens = self._tokens(query)
+        scored = []
+        for doc in self.index:
+            d_tokens = self._tokens(f"{doc['title']} {doc.get('content', '')} {' '.join(doc.get('tags', []))}")
+            overlap = len(q_tokens & d_tokens)
+            if overlap > 0:
+                scored.append((overlap, doc))
+
+        scored.sort(key=lambda row: row[0], reverse=True)
+
+        if not scored:
+            fallback = self.index[: min(limit, len(self.index))]
+            return {
+                "blocked": False,
+                "mode": "fallback",
+                "hint": "Точных совпадений нет, показаны релевантные базовые источники.",
+                "results": fallback,
+            }
+
+        return {
+            "blocked": False,
+            "mode": "exact_or_close",
+            "results": [item[1] for item in scored[:limit]],
+        }
 
 
 def cmd_validate_event(args: argparse.Namespace) -> int:
@@ -207,8 +301,21 @@ def cmd_append_audit(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_verify_audit(args: argparse.Namespace) -> int:
+    result = AuditLog(Path(args.log)).verify()
+    print(json.dumps(result, ensure_ascii=False))
+    return 0 if result["ok"] else 3
+
+
+def cmd_safe_search(args: argparse.Namespace) -> int:
+    engine = PrivacySafeSearch(Path(args.index))
+    result = engine.search(args.query, limit=args.limit)
+    print(json.dumps(result, ensure_ascii=False))
+    return 4 if result.get("blocked") else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="ABSOLUTE Runtime MVP")
+    parser = argparse.ArgumentParser(description="ABSOLUTE Runtime")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_validate = sub.add_parser("validate-event", help="Validate unified event JSON")
@@ -221,7 +328,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_access.add_argument("--scope", required=True)
     p_access.set_defaults(func=cmd_check_access)
 
-    p_run = sub.add_parser("run-command", help="Run whitelisted command in safe mode")
+    p_run = sub.add_parser("run-command", help="Run whitelisted command with resource/time limits")
     p_run.add_argument("--command-id", required=True)
     p_run.add_argument("--timeout", type=int, default=10)
     p_run.add_argument("args", nargs="*")
@@ -231,6 +338,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_audit.add_argument("--record", required=True)
     p_audit.add_argument("--log", default=str(REPO_ROOT / "absolute/runtime/audit.log"))
     p_audit.set_defaults(func=cmd_append_audit)
+
+    p_verify = sub.add_parser("verify-audit", help="Verify entire audit chain integrity")
+    p_verify.add_argument("--log", default=str(REPO_ROOT / "absolute/runtime/audit.log"))
+    p_verify.set_defaults(func=cmd_verify_audit)
+
+    p_search = sub.add_parser("safe-search", help="Privacy-safe search with PII guard and non-empty fallback")
+    p_search.add_argument("--query", required=True)
+    p_search.add_argument("--index", default=str(DEFAULT_INDEX_PATH))
+    p_search.add_argument("--limit", type=int, default=5)
+    p_search.set_defaults(func=cmd_safe_search)
 
     return parser
 

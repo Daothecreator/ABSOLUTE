@@ -78,6 +78,8 @@ python absolute/apps/guide/absolute_runtime.py validate-event --event absolute/a
 python absolute/apps/guide/absolute_runtime.py check-access --rules absolute/apps/guide/policies.example.json --capability filesystem:read --scope path:/workspace/ABSOLUTE/README.md
 python absolute/apps/guide/absolute_runtime.py run-command --command-id show-date
 python absolute/apps/guide/absolute_runtime.py append-audit --record absolute/apps/guide/audit-record.example.json
+python absolute/apps/guide/absolute_runtime.py verify-audit
+python absolute/apps/guide/absolute_runtime.py safe-search --query "privacy minimization principles"
 ```
 
 Run tests:
@@ -85,6 +87,11 @@ Run tests:
 ```bash
 python -m unittest absolute.apps.guide.test_runtime -v
 ```
+
+
+Search safety policy:
+- PII/doxxing-like queries are blocked with a safe explanation and alternatives.
+- Non-sensitive searches never return an empty screen: if no direct match exists, fallback sources are returned.
 
 ## Installation
 

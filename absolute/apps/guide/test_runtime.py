@@ -8,6 +8,7 @@ from absolute.apps.guide.absolute_runtime import (
     CapabilityPolicyEngine,
     CommandRunner,
     EventValidator,
+    PrivacySafeSearch,
 )
 
 
@@ -35,13 +36,29 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(result["exit_code"], 0)
         self.assertTrue(result["stdout"])
 
-    def test_audit_log_chain(self):
+    def test_audit_log_chain_and_verify(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "audit.log"
             log = AuditLog(path)
             one = log.append({"n": 1})
             two = log.append({"n": 2})
             self.assertEqual(two["prev_hash"], one["chain_hash"])
+            verify = log.verify()
+            self.assertTrue(verify["ok"])
+            self.assertEqual(verify["records"], 2)
+
+    def test_privacy_safe_search_blocks_pii(self):
+        search = PrivacySafeSearch(Path("absolute/apps/guide/search-index.example.json"))
+        result = search.search("найди email john.doe@example.com", limit=3)
+        self.assertTrue(result["blocked"])
+        self.assertTrue(result["safe_alternatives"])
+
+    def test_privacy_safe_search_fallback_non_empty(self):
+        search = PrivacySafeSearch(Path("absolute/apps/guide/search-index.example.json"))
+        result = search.search("квантовый кит в пустыне", limit=2)
+        self.assertFalse(result["blocked"])
+        self.assertEqual(result["mode"], "fallback")
+        self.assertEqual(len(result["results"]), 2)
 
 
 if __name__ == "__main__":

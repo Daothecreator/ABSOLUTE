@@ -1,0 +1,36 @@
+{
+  "documents": [
+    {
+      "id": "doc-001",
+      "title": "GDPR Article 5: Data minimization",
+      "content": "Data processing should be adequate, relevant and limited to what is necessary.",
+      "source": "Official EU legal text",
+      "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "tags": ["privacy", "gdpr", "minimization"]
+    },
+    {
+      "id": "doc-002",
+      "title": "UN Universal Declaration of Human Rights, Article 12",
+      "content": "No one shall be subjected to arbitrary interference with privacy.",
+      "source": "United Nations",
+      "url": "https://www.un.org/en/about-us/universal-declaration-of-human-rights",
+      "tags": ["privacy", "human-rights"]
+    },
+    {
+      "id": "doc-003",
+      "title": "Linux eBPF LSM overview",
+      "content": "LSM hooks can enforce MAC style rules and provide runtime auditing.",
+      "source": "Kernel documentation",
+      "url": "https://docs.kernel.org/",
+      "tags": ["linux", "ebpf", "lsm", "security"]
+    },
+    {
+      "id": "doc-004",
+      "title": "Sigstore Rekor transparency basics",
+      "content": "Transparency logs provide tamper-evident records for software signatures.",
+      "source": "Sigstore docs",
+      "url": "https://docs.sigstore.dev/",
+      "tags": ["supply-chain", "rekor", "transparency"]
+    }
+  ]
+}
