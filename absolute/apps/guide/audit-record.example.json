@@ -1,0 +1,9 @@
+{
+  "type": "command-execution",
+  "timestamp": "2026-04-15T00:00:00Z",
+  "actor": "local-user",
+  "action": "run-command",
+  "details": {
+    "command_id": "show-date"
+  }
+}

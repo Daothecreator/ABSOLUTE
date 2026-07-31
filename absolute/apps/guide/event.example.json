@@ -1,0 +1,33 @@
+{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "timestamp": "2026-04-15T00:00:00Z",
+  "platform": "linux",
+  "event_type": "net.connect",
+  "process": {
+    "pid": 4242,
+    "ppid": 1,
+    "uid": 1000,
+    "gid": 1000,
+    "image": "/usr/bin/curl",
+    "cmdline": "curl https://example.org",
+    "lineage": [1, 4242]
+  },
+  "target": {
+    "host": "example.org",
+    "port": 443,
+    "url": "https://example.org",
+    "bytes": 512
+  },
+  "policy_decision": {
+    "effect": "allow",
+    "policy_id": "policy-net-example",
+    "reason": "Domain allowlist",
+    "enforced": true,
+    "latency_us": 230
+  },
+  "evidence": {
+    "collector": "linux-ebpf-cgroup-connect",
+    "inputs": ["connect(2)", "proc-lineage"],
+    "hash": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  }
+}

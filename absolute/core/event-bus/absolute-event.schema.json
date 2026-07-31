@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://absolute.local/schemas/absolute-event.schema.json",
+  "title": "ABSOLUTE Unified Security Event",
+  "description": "Cross-platform event contract emitted by Linux/macOS/Windows/Android/iOS monitors.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "timestamp",
+    "platform",
+    "event_type",
+    "process",
+    "target",
+    "policy_decision",
+    "evidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable event UUID.",
+      "pattern": "^[a-f0-9-]{36}$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp in RFC3339 format."
+    },
+    "platform": {
+      "type": "string",
+      "enum": ["linux", "macos", "windows", "android", "ios"]
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "process.exec",
+        "process.inject",
+        "fs.read",
+        "fs.write",
+        "net.connect",
+        "net.dns",
+        "sensor.camera",
+        "sensor.mic",
+        "crypto.cert.pin_violation"
+      ]
+    },
+    "process": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pid", "ppid", "image", "lineage"],
+      "properties": {
+        "pid": { "type": "integer", "minimum": 1 },
+        "ppid": { "type": "integer", "minimum": 0 },
+        "uid": { "type": "integer", "minimum": 0 },
+        "gid": { "type": "integer", "minimum": 0 },
+        "image": { "type": "string", "minLength": 1 },
+        "cmdline": { "type": "string" },
+        "signature": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": { "type": "string", "enum": ["trusted", "untrusted", "unknown"] },
+            "signer": { "type": "string" },
+            "digest_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          }
+        },
+        "lineage": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "description": "Ancestry from root process to current PID."
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "description": "Access target interpreted per event type.",
+      "additionalProperties": false,
+      "properties": {
+        "resource": { "type": "string" },
+        "path": { "type": "string" },
+        "host": { "type": "string" },
+        "port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+        "url": { "type": "string" },
+        "dns_qname": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "frequency_hz": { "type": "number", "minimum": 0 }
+      }
+    },
+    "policy_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["effect", "policy_id", "reason"],
+      "properties": {
+        "effect": { "type": "string", "enum": ["allow", "deny", "alert"] },
+        "policy_id": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 },
+        "enforced": { "type": "boolean" },
+        "latency_us": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collector", "inputs", "hash"],
+      "properties": {
+        "collector": { "type": "string", "minLength": 1 },
+        "inputs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Source observations that produced the decision."
+        },
+        "hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA-256 digest of canonicalized event payload."
+        },
+        "merkle_root": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "Optional root proving append-only audit log inclusion."
+        }
+      }
+    }
+  }
+}

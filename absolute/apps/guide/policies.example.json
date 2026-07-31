@@ -1,0 +1,7 @@
+{
+  "rules": [
+    {"effect": "allow", "capability": "filesystem:read", "scope_prefix": "path:/workspace/ABSOLUTE"},
+    {"effect": "deny", "capability": "filesystem:read", "scope_prefix": "path:/etc"},
+    {"effect": "allow", "capability": "net:connect", "scope_prefix": "domain:example.org"}
+  ]
+}
