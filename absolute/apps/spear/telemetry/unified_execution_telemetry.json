@@ -1,0 +1,670 @@
+{
+  "metadata": {
+    "engine_id": "ZERO-AZIMUTH-SPEAR-CYBERNETIC-BIOPHYSICAL-ENGINE-V1",
+    "axiomatic_standard": "ZERO-AZIMUTH-STABLE-EXACT-NN-AXIOMS",
+    "scenario_epoch_utc": "2026-10-27T20:00:15Z",
+    "executed_at_utc": "2026-11-10T01:46:01Z",
+    "sqlite_wal_database": "/agent/repos/ABSOLUTE/absolute/apps/spear/telemetry/spear_cybernetic_state.sqlite3",
+    "json_telemetry": "/agent/repos/ABSOLUTE/absolute/apps/spear/telemetry/unified_execution_telemetry.json"
+  },
+  "layer_1_planetary_thermodynamics": {
+    "solar_budget": {
+      "solar_surface_area_m2": 6.087350987525413e+18,
+      "solar_luminosity_w": 3.8472484194287e+26,
+      "earth_cross_section_m2": 127516117977447.06,
+      "intercepted_continuous_power_w": 1.7354943656730547e+17,
+      "intercepted_continuous_power_tw": 173549.43656730547,
+      "hourly_energy_ej": 624.7779716422997,
+      "annual_energy_j": 5.476803699416399e+24,
+      "annual_energy_ej": 5476803.699416399,
+      "human_annual_consumption_ej": 576.0,
+      "solar_to_human_surplus_ratio": 9508.339755931247,
+      "minutes_of_sun_for_full_human_year": 55.315650628902816,
+      "days_of_sun_for_all_fossil_uranium_reserves": 4.3348732770045855,
+      "one_percent_capture_multiple_of_demand": 96.41635364850303
+    },
+    "validated_interval_P_solar_watts": {
+      "inf": "1.735494365673e+17",
+      "sup": "1.735494365673e+17",
+      "midpoint": "1.735494365673e+17",
+      "radius": "0.0000e-28"
+    },
+    "interval_contains_exact_intercept": true,
+    "kahan_babushka_neumaier": {
+      "reconstructed_intercept_w": 1.7354943656730547e+17,
+      "ulp_error_bound_w": 154.1428643101965
+    },
+    "geothermal_and_gyrotron": {
+      "total_internal_heat_j": 1e+31,
+      "civilizational_longevity_years": 17361111111.11111,
+      "continuous_flux_tw": 47.0,
+      "annual_lithospheric_emission_ej_range": [
+        1420.092,
+        1546.3224
+      ],
+      "upper_10km_recoverable_j": 3.3e+25,
+      "target_borehole_depth_km": 20.0,
+      "basement_rock_temperature_c_range": [
+        500.0,
+        565.0
+      ],
+      "gyrotron_1mw_ablation_days_to_target": 63.55099336544168,
+      "project_obsidian_initial_mw": 50.0,
+      "project_obsidian_expanded_mw": 250.0,
+      "land_footprint_reduction_vs_solar_pct": 99.0
+    },
+    "tidal_dissipation": {
+      "rotational_kinetic_energy_j": 2.137632635163645e+29,
+      "axial_rotational_power_extracted_tw": 2.345144184,
+      "total_astronomical_tidal_dissipation_tw": 3.7,
+      "shallow_marginal_seas_dissipation_tw": 2.7,
+      "abyssal_internal_wave_dissipation_tw": 1.0,
+      "lunar_recession_mm_per_year": 38.3
+    },
+    "crustal_circularity": {
+      "entropy_of_mixing_j_per_mol_k": 12.141342728957202,
+      "reversible_unmixing_work_j_per_mol_at_1200K": 14569.611274748642,
+      "element_count": 14,
+      "copper_energy_reduction_pct": 95.0,
+      "elements": [
+        {
+          "atomic_number": 8,
+          "element": "Oxygen",
+          "symbol": "O",
+          "classification": "Lithophile",
+          "crustal_ppm": 461000,
+          "crustal_weight_pct": 46.1,
+          "virgin_gj_per_tonne": 2.0,
+          "secondary_recycling_gj_per_tonne": 0.4,
+          "energy_reduction_pct": 80.0
+        },
+        {
+          "atomic_number": 14,
+          "element": "Silicon",
+          "symbol": "Si",
+          "classification": "Lithophile",
+          "crustal_ppm": 282000,
+          "crustal_weight_pct": 28.2,
+          "virgin_gj_per_tonne": 85.0,
+          "secondary_recycling_gj_per_tonne": 12.0,
+          "energy_reduction_pct": 85.88235294117646
+        },
+        {
+          "atomic_number": 13,
+          "element": "Aluminum",
+          "symbol": "Al",
+          "classification": "Lithophile",
+          "crustal_ppm": 82300,
+          "crustal_weight_pct": 8.23,
+          "virgin_gj_per_tonne": 210.0,
+          "secondary_recycling_gj_per_tonne": 10.5,
+          "energy_reduction_pct": 95.0
+        },
+        {
+          "atomic_number": 26,
+          "element": "Iron",
+          "symbol": "Fe",
+          "classification": "Siderophile",
+          "crustal_ppm": 56300,
+          "crustal_weight_pct": 5.63,
+          "virgin_gj_per_tonne": 22.0,
+          "secondary_recycling_gj_per_tonne": 6.2,
+          "energy_reduction_pct": 71.81818181818181
+        },
+        {
+          "atomic_number": 20,
+          "element": "Calcium",
+          "symbol": "Ca",
+          "classification": "Lithophile",
+          "crustal_ppm": 41500,
+          "crustal_weight_pct": 4.15,
+          "virgin_gj_per_tonne": 18.0,
+          "secondary_recycling_gj_per_tonne": 3.5,
+          "energy_reduction_pct": 80.55555555555556
+        },
+        {
+          "atomic_number": 11,
+          "element": "Sodium",
+          "symbol": "Na",
+          "classification": "Lithophile",
+          "crustal_ppm": 23600,
+          "crustal_weight_pct": 2.36,
+          "virgin_gj_per_tonne": 35.0,
+          "secondary_recycling_gj_per_tonne": 7.0,
+          "energy_reduction_pct": 80.0
+        },
+        {
+          "atomic_number": 12,
+          "element": "Magnesium",
+          "symbol": "Mg",
+          "classification": "Lithophile",
+          "crustal_ppm": 23300,
+          "crustal_weight_pct": 2.33,
+          "virgin_gj_per_tonne": 145.0,
+          "secondary_recycling_gj_per_tonne": 14.5,
+          "energy_reduction_pct": 90.0
+        },
+        {
+          "atomic_number": 19,
+          "element": "Potassium",
+          "symbol": "K",
+          "classification": "Lithophile",
+          "crustal_ppm": 20900,
+          "crustal_weight_pct": 2.09,
+          "virgin_gj_per_tonne": 14.0,
+          "secondary_recycling_gj_per_tonne": 3.2,
+          "energy_reduction_pct": 77.14285714285714
+        },
+        {
+          "atomic_number": 22,
+          "element": "Titanium",
+          "symbol": "Ti",
+          "classification": "Lithophile",
+          "crustal_ppm": 5650,
+          "crustal_weight_pct": 0.565,
+          "virgin_gj_per_tonne": 400.0,
+          "secondary_recycling_gj_per_tonne": 68.0,
+          "energy_reduction_pct": 83.0
+        },
+        {
+          "atomic_number": 1,
+          "element": "Hydrogen",
+          "symbol": "H",
+          "classification": "Atmophile",
+          "crustal_ppm": 1400,
+          "crustal_weight_pct": 0.14,
+          "virgin_gj_per_tonne": 142.0,
+          "secondary_recycling_gj_per_tonne": 18.0,
+          "energy_reduction_pct": 87.32394366197182
+        },
+        {
+          "atomic_number": 15,
+          "element": "Phosphorus",
+          "symbol": "P",
+          "classification": "Lithophile",
+          "crustal_ppm": 1050,
+          "crustal_weight_pct": 0.105,
+          "virgin_gj_per_tonne": 17.5,
+          "secondary_recycling_gj_per_tonne": 2.1,
+          "energy_reduction_pct": 88.0
+        },
+        {
+          "atomic_number": 25,
+          "element": "Manganese",
+          "symbol": "Mn",
+          "classification": "Lithophile",
+          "crustal_ppm": 950,
+          "crustal_weight_pct": 0.095,
+          "virgin_gj_per_tonne": 48.0,
+          "secondary_recycling_gj_per_tonne": 11.0,
+          "energy_reduction_pct": 77.08333333333333
+        },
+        {
+          "atomic_number": 6,
+          "element": "Carbon",
+          "symbol": "C",
+          "classification": "Atmophile",
+          "crustal_ppm": 200,
+          "crustal_weight_pct": 0.02,
+          "virgin_gj_per_tonne": 30.0,
+          "secondary_recycling_gj_per_tonne": 4.5,
+          "energy_reduction_pct": 85.0
+        },
+        {
+          "atomic_number": 29,
+          "element": "Copper",
+          "symbol": "Cu",
+          "classification": "Chalcophile",
+          "crustal_ppm": 60,
+          "crustal_weight_pct": 0.006,
+          "virgin_gj_per_tonne": 58.0,
+          "secondary_recycling_gj_per_tonne": 2.9,
+          "energy_reduction_pct": 95.0
+        }
+      ]
+    }
+  },
+  "layer_2_spear_oracle_and_substrate": {
+    "thermodynamic_computation_ceilings": {
+      "heat_sink_temp_k": 293.15,
+      "landauer_min_energy_per_bit_j": 2.8054248672027597e-21,
+      "bremermann_margolus_levitin_ops_per_s_kg": 5.4255699619328795e+50,
+      "speed_of_light_roundtrip_latency_ms": 66.7128190396304
+    },
+    "semiconductor_and_grid_rocof": {
+      "euv_continuous_power_mw": 102.0,
+      "daily_wafer_energy_mwh": 5175.0,
+      "daily_ultra_pure_water_gallons": 31500000.0,
+      "grid_frequency_hz": 50.0,
+      "rocof_hz_per_s": 0.09027777777777778,
+      "wafer_integrity_safe": true,
+      "synthetic_inertia_bess_And_condenser_dispatch_gva_s": 0.0
+    },
+    "physical_oracle_and_bft_consensus": {
+      "total_sensor_nodes": 7,
+      "reed_solomon_cosmic_bitflips_repaired": 1,
+      "isolated_compromised_sensors": [
+        "SCADA_NODE_04_OXIDIZED"
+      ],
+      "dual_path_anomaly_flags": [
+        false,
+        false,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "bft_quorum_satisfied": true,
+      "bft_merkle_root": "1ea4be628fec00e937abe7016ec710db35dc7de5bf825f3fc25531c5efcbbb39",
+      "merkle_inclusion_proofs_valid": true,
+      "reconciled_mass_flux_vector": [
+        420.0,
+        420.0,
+        420.0,
+        420.0,
+        420.0,
+        420.0,
+        420.0
+      ],
+      "max_raw_energy_violation_mw": 57.5,
+      "post_reconciliation_energy_violation_mw": 0.0
+    }
+  },
+  "layer_3_cybernetic_planning": {
+    "sectors": [
+      "S01_Solar_PV_and_Thermal_Arrays",
+      "S02_Superhot_Petrothermal_Gyrotron_Wells",
+      "S03_Tidal_and_Grid_Inertia_Storage_BESS",
+      "S04_Secondary_Metallurgy_and_Circular_Refining",
+      "S05_Standardized_Modular_Machinery_and_Fasteners",
+      "S06_Semiconductor_and_Optical_Compute_Fabrication",
+      "S07_Agroecological_Polyculture_and_Vertical_Farms",
+      "S08_Municipal_UPW_Desalination_and_ClosedLoop_Water",
+      "S09_Electrified_HighSpeed_Rail_and_Maritime_Logistics",
+      "S10_CradleToCradle_Modular_Housing_and_Habitat",
+      "S11_OpenSource_Pharmacopeia_and_Clinical_Healthcare",
+      "S12_Autonomous_Robotics_and_Ecological_Restoration"
+    ],
+    "leontief_iterative_solver": {
+      "spectral_radius_rho_A": 0.2417787597820822,
+      "hawkins_simon_productive": true,
+      "chebyshev_iterations": 19,
+      "gauss_seidel_iterations": 14,
+      "max_l_inf_residual": 8.526512829121202e-14,
+      "gauss_seidel_l_inf_residual": 4.263256414560601e-14,
+      "max_discrepancy_vs_direct_lu": 5.684341886080802e-14,
+      "gauss_seidel_discrepancy_vs_direct_lu": 5.684341886080802e-14,
+      "gross_output_vector_x": [
+        217.0009214024389,
+        174.90073419609865,
+        133.88522770263546,
+        221.73378518606168,
+        211.80098021812114,
+        166.7827604996769,
+        269.54520611027107,
+        222.35514100485736,
+        231.381323939334,
+        222.239208638925,
+        241.28356390394296,
+        205.99345794461195
+      ],
+      "chebyshev_gross_output_vector_x": [
+        217.0009214024389,
+        174.90073419609865,
+        133.88522770263546,
+        221.73378518606165,
+        211.80098021812114,
+        166.78276049967687,
+        269.545206110271,
+        222.35514100485733,
+        231.381323939334,
+        222.239208638925,
+        241.28356390394293,
+        205.99345794461195
+      ],
+      "net_final_allocation_vector_d": [
+        180.0,
+        140.0,
+        95.0,
+        160.0,
+        150.0,
+        110.0,
+        210.0,
+        190.0,
+        175.0,
+        165.0,
+        200.0,
+        145.0
+      ]
+    },
+    "kantorovich_planetary_boundaries_lp": {
+      "status": "OPTIMAL_HOMEOSTASIS_VERIFIED",
+      "total_use_value_objective": 4573.94280423427,
+      "optimal_gross_output_x": [
+        292.95124389329254,
+        236.11599116473317,
+        180.74505739855786,
+        299.3406100011832,
+        285.9313232944635,
+        225.15672667456386,
+        363.88602824886595,
+        300.1794403565574,
+        312.3647873181009,
+        300.02293166254873,
+        325.73281127032305,
+        278.0911682252261
+      ],
+      "optimal_net_provision_d": [
+        243.0,
+        189.0,
+        128.25,
+        215.99999999999994,
+        202.49999999999997,
+        148.50000000000006,
+        283.5,
+        256.5,
+        236.25000000000006,
+        222.74999999999994,
+        270.00000000000006,
+        195.75
+      ],
+      "baseline_needs_satisfied": true,
+      "planetary_boundaries_audit": [
+        {
+          "id": "PB1",
+          "process": "Climate Change (Radiative Forcing)",
+          "unit": "W/m^2",
+          "safe_threshold": "<= 1.0",
+          "pre_transition_market_metric": 2.97,
+          "post_transition_cybernetic_metric": 0.7801,
+          "raw_constraint_value": 0.7801009979555844,
+          "raw_constraint_usage_pct": 78.01009979555845,
+          "compliant": true
+        },
+        {
+          "id": "PB2",
+          "process": "Biosphere Integrity (HANPP)",
+          "unit": "% HANPP",
+          "safe_threshold": "<= 10.0",
+          "pre_transition_market_metric": 30.0,
+          "post_transition_cybernetic_metric": 6.8163,
+          "raw_constraint_value": 6.8163460613995115,
+          "raw_constraint_usage_pct": 68.16346061399511,
+          "compliant": true
+        },
+        {
+          "id": "PB3",
+          "process": "Biogeochemical Nitrogen Flow",
+          "unit": "Tg N/yr",
+          "safe_threshold": "<= 62.0",
+          "pre_transition_market_metric": 165.0,
+          "post_transition_cybernetic_metric": 54.5218,
+          "raw_constraint_value": 54.521849426542595,
+          "raw_constraint_usage_pct": 87.93846681700418,
+          "compliant": true
+        },
+        {
+          "id": "PB4",
+          "process": "Biogeochemical Phosphorus Flow",
+          "unit": "Tg P/yr",
+          "safe_threshold": "<= 11.0",
+          "pre_transition_market_metric": 18.2,
+          "post_transition_cybernetic_metric": 9.5062,
+          "raw_constraint_value": 9.506206789388052,
+          "raw_constraint_usage_pct": 86.42006172170956,
+          "compliant": true
+        },
+        {
+          "id": "PB5",
+          "process": "Novel Chemical Entities",
+          "unit": "Relative Index",
+          "safe_threshold": "<= 0.0",
+          "pre_transition_market_metric": 50.0,
+          "post_transition_cybernetic_metric": 0.0,
+          "raw_constraint_value": 0.0,
+          "raw_constraint_usage_pct": 0.0,
+          "compliant": true
+        },
+        {
+          "id": "PB6",
+          "process": "Freshwater Alteration (Blue Water)",
+          "unit": "% deviation",
+          "safe_threshold": "<= 12.9",
+          "pre_transition_market_metric": 22.6,
+          "post_transition_cybernetic_metric": 10.9106,
+          "raw_constraint_value": 10.910648379510368,
+          "raw_constraint_usage_pct": 84.5786696086075,
+          "compliant": true
+        },
+        {
+          "id": "PB7",
+          "process": "Land-System Change (Agricultural Footprint)",
+          "unit": "% land area",
+          "safe_threshold": ">= 75.0%",
+          "pre_transition_market_metric": 41.0,
+          "post_transition_cybernetic_metric": 85.43,
+          "raw_constraint_value": 14.565411525077206,
+          "raw_constraint_usage_pct": 58.26164610030883,
+          "compliant": true
+        },
+        {
+          "id": "PB8",
+          "process": "Ocean Acidification (Aragonite Deficiency)",
+          "unit": "3.50 - Omega_arag",
+          "safe_threshold": ">= 2.86",
+          "pre_transition_market_metric": 0.66,
+          "post_transition_cybernetic_metric": 2.9739,
+          "raw_constraint_value": 0.5261404410034762,
+          "raw_constraint_usage_pct": 82.20944390679315,
+          "compliant": true
+        },
+        {
+          "id": "PB9",
+          "process": "Atmospheric Aerosol Loading",
+          "unit": "AOD units",
+          "safe_threshold": "<= 0.1",
+          "pre_transition_market_metric": 0.063,
+          "post_transition_cybernetic_metric": 0.0637,
+          "raw_constraint_value": 0.06371173680006156,
+          "raw_constraint_usage_pct": 63.71173680006156,
+          "compliant": true
+        }
+      ]
+    },
+    "decentralized_admm_and_vsm": {
+      "admm_converged_iterations": 120,
+      "final_primal_residual": 0.0,
+      "final_dual_residual": 7.273420130647555e-09,
+      "decentralized_edge_output_x": [
+        249.5510596076046,
+        201.1358443215001,
+        153.96801185543148,
+        254.99385295752222,
+        243.57112724557953,
+        191.8001745703922,
+        309.9769870247704,
+        255.7084121530147,
+        266.0885225257467,
+        255.57508993169273,
+        277.4760984878735,
+        236.8924766324533
+      ],
+      "decentralized_net_output_d": [
+        206.99999999574942,
+        160.9999999969231,
+        109.24999999845589,
+        183.99999999490777,
+        172.49999999633923,
+        126.49999999692241,
+        241.49999999893697,
+        218.49999999820446,
+        201.24999999682584,
+        189.74999999840057,
+        229.999999999135,
+        166.74999999773777
+      ],
+      "net_output_covers_baseline": true,
+      "vsm_variety_engineering": {
+        "disturbance_variety_shannon_bits_V_D": 142.0,
+        "controller_variety_shannon_bits_V_R": 196.0,
+        "ashby_law_satisfied_V_R_ge_V_D": true,
+        "system_2_3_telemetry_latency_ms": 1.25
+      }
+    }
+  },
+  "layer_4_allocation_labor_and_causal_epistemology": {
+    "top_trading_cycles_allocation": {
+      "total_agents": 5,
+      "rounds_to_clear": 1,
+      "final_allocation": {
+        "AGENT_A1": "HABITAT_H2",
+        "AGENT_A2": "HABITAT_H3",
+        "AGENT_A3": "HABITAT_H1",
+        "AGENT_A4": "HABITAT_H5",
+        "AGENT_A5": "HABITAT_H4"
+      },
+      "rounds_trace": [
+        {
+          "round": 1,
+          "cycles": [
+            [
+              "AGENT_A1",
+              "AGENT_A2",
+              "AGENT_A3"
+            ],
+            [
+              "AGENT_A4",
+              "AGENT_A5"
+            ]
+          ],
+          "assigned": {
+            "AGENT_A1": "HABITAT_H2",
+            "AGENT_A2": "HABITAT_H3",
+            "AGENT_A3": "HABITAT_H1",
+            "AGENT_A4": "HABITAT_H5",
+            "AGENT_A5": "HABITAT_H4"
+          }
+        }
+      ],
+      "individually_rational_and_core_stable": true,
+      "strategy_proof_verified": true,
+      "exhaustive_strategy_proof_check_agent_A1": true
+    },
+    "workforce_and_civic_roster": {
+      "global_active_workforce_millions": 3500.0,
+      "essential_lifeline_workforce_pct": 22.5,
+      "essential_lifeline_workers_millions": 787.5,
+      "liberated_from_pecuniary_overhead_pct": 77.5,
+      "liberated_workers_for_science_ecology_care_millions": 2712.5,
+      "sector_breakdown_pct": {
+        "Electrical_Power_Grids_SCADA": 2.0,
+        "Water_Supply_and_Sanitation": 1.5,
+        "Intermodal_Logistics_and_Freight": 5.0,
+        "Agroecological_Food_Provision": 6.5,
+        "Clinical_Healthcare_and_Pharma": 7.5
+      },
+      "rotational_civic_roster_hours_per_person_month": 0.24
+    },
+    "pearl_3_layer_causal_hierarchy": {
+      "layer_1_association_seeing": {
+        "E_Y_given_X0_restricted": -4.4,
+        "E_Y_given_X1_open": 7.2,
+        "naive_associational_difference": 11.6
+      },
+      "layer_2_intervention_doing": {
+        "E_Y_do_X0": -3.3,
+        "E_Y_do_X1": 3.9,
+        "true_average_causal_effect_do_X": 7.2
+      },
+      "layer_3_counterfactual_imagining": {
+        "abducted_exogenous_eps_Z": 0.0,
+        "abducted_exogenous_eps_Y": -0.0,
+        "counterfactual_Y_do_X1_under_legacy_U": 2.8,
+        "counterfactual_Y_do_X1_U0_post_scarcity": 7.2,
+        "net_cognitive_and_prosocial_gain": 11.6
+      }
+    },
+    "epistemic_provenance_dag": {
+      "root_cid": "af3cc026505c174fb9b3a8eff352c426d032f3b7f3e99c84de3b298691b6bf25",
+      "child_cid": "a68b11dfc7b87c407552e67b962658e53d73a0299b14f125db9aad71fc801c18",
+      "child_parent_is_root": true,
+      "nodes": {
+        "af3cc026505c174fb9b3a8eff352c426d032f3b7f3e99c84de3b298691b6bf25": {
+          "cid": "af3cc026505c174fb9b3a8eff352c426d032f3b7f3e99c84de3b298691b6bf25",
+          "title": "Open-Source 1-MW Millimeter-Wave Gyrotron Waveguide Assembly",
+          "creator": "MIT-Quaise Open Commons Collective",
+          "parents": [],
+          "causal_specification": "do(Depth = 20km, Temp = 500C) -> Baseload_Steam = 250MW"
+        },
+        "a68b11dfc7b87c407552e67b962658e53d73a0299b14f125db9aad71fc801c18": {
+          "cid": "a68b11dfc7b87c407552e67b962658e53d73a0299b14f125db9aad71fc801c18",
+          "title": "Standardized Supercritical Turbine & Universal Fastener BOM v4.2",
+          "creator": "Global Viable System 1 Turbine Guild",
+          "parents": [
+            "af3cc026505c174fb9b3a8eff352c426d032f3b7f3e99c84de3b298691b6bf25"
+          ],
+          "causal_specification": "do(Modular_Lifespan = 350%_Extension) -> Durable_Throughput_Reduction = 52%"
+        }
+      }
+    }
+  },
+  "layer_5_chronological_transition_ledger": [
+    {
+      "phase_code": "PHASE_1",
+      "horizon_label": "Days 0 to 30 (T_0 to T_+30d)",
+      "digital_substrate_state": "Algorithmic purification: retire real-time-bidding payloads, clickstream collection, and DRM wrappers; move artifacts to content-addressed storage.",
+      "physical_allocation_mode": "Lifeline decoupling: power, water, telecom, and freight treated as open commons; retail and warehouse buffer stocks drawn down for continuity.",
+      "web_payload_reduction_pct": 70.0,
+      "recovered_compute_capacity_pct": 40.0,
+      "durable_throughput_reduction_pct": 5.0,
+      "agricultural_land_water_saved_pct": 10.0,
+      "military_emissions_eliminated_pct": 1.5,
+      "grid_rocof_hz_s": 0.18,
+      "state_merkle_root": "554b20221c214a7f9b63617eaebb6d9a7884112f64c4bb3f7728d5820febd682",
+      "committed_at_utc": "2026-11-10T01:46:01Z"
+    },
+    {
+      "phase_code": "PHASE_2",
+      "horizon_label": "Months 1 to 24 (T_+30d to T_+2y)",
+      "digital_substrate_state": "Institutional disintermediation: replace revenue ledgers with the Leontief-Kantorovich balance and reconcile sensors against div(J) + drho/dt = 0.",
+      "physical_allocation_mode": "Structural recoupling: open logistics telemetry, common fastener and chip standards, and regional agroecological polycultures.",
+      "web_payload_reduction_pct": 74.0,
+      "recovered_compute_capacity_pct": 44.0,
+      "durable_throughput_reduction_pct": 28.0,
+      "agricultural_land_water_saved_pct": 30.0,
+      "military_emissions_eliminated_pct": 3.2,
+      "grid_rocof_hz_s": 0.12,
+      "state_merkle_root": "2689a4b343b98931f7caef372f08d558de98fddc960621ccdf0ca95584c0b433",
+      "committed_at_utc": "2026-11-10T01:46:01Z"
+    },
+    {
+      "phase_code": "PHASE_3",
+      "horizon_label": "Years 2 to 10 (T_+2y to T_+10y)",
+      "digital_substrate_state": "Hardware and thermodynamic co-optimization under EUV power, ultrapure-water recycling, and ADMM consensus inside the nine planetary boundaries.",
+      "physical_allocation_mode": "Capital retooling and circular material flow. Durable throughput falls by at least half. Military production is retired and the same yards build rail, geothermal rigs, and storage.",
+      "web_payload_reduction_pct": 76.0,
+      "recovered_compute_capacity_pct": 46.0,
+      "durable_throughput_reduction_pct": 52.0,
+      "agricultural_land_water_saved_pct": 32.5,
+      "military_emissions_eliminated_pct": 5.5,
+      "grid_rocof_hz_s": 0.08,
+      "state_merkle_root": "43d7a950561b6a630c75ac8f70569db97d4cd20508081f05939dbe7ac2385419",
+      "committed_at_utc": "2026-11-10T01:46:01Z"
+    },
+    {
+      "phase_code": "PHASE_4",
+      "horizon_label": "Decade 2+ (T_+10y and Beyond)",
+      "digital_substrate_state": "Steady-state biophysical homeostasis: compute sited at hydro and petrothermal heat sinks inside the Landauer bound, with participatory civic telemetry.",
+      "physical_allocation_mode": "Mature cybernetic commons: solar, supercritical petrothermal, and tidal supply at low marginal cost; local fabrication; survival separated from the wage relation.",
+      "web_payload_reduction_pct": 78.0,
+      "recovered_compute_capacity_pct": 48.0,
+      "durable_throughput_reduction_pct": 55.0,
+      "agricultural_land_water_saved_pct": 35.0,
+      "military_emissions_eliminated_pct": 5.5,
+      "grid_rocof_hz_s": 0.05,
+      "state_merkle_root": "2251890ffe8c7766bb62790a01873a2ecd2b6e68a900e91fd1d34afcc5a54442",
+      "committed_at_utc": "2026-11-10T01:46:01Z"
+    }
+  ]
+}
